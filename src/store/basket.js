@@ -140,5 +140,8 @@ export const basket = {
             context.commit('setAllGoodsBasket', result)
         }
     },
+    getters: {
+        userAccessKey: (state) => state.userAccessKey
+    },
     namespaced: true,
 }

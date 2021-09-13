@@ -7,6 +7,7 @@ import home from '@/page/home/home.vue';
 import pageItem from '@/page/pageItem/pageItem';
 import pageBasket from '@/page/basket/pageBasket';
 import pageOrder from '@/page/order/pageOrder';
+import pageStatus from '@/page/status/pageStatus';
 
 const routes = [{
     path: '/',
@@ -27,6 +28,11 @@ const routes = [{
     path: '/order',
     name: 'order',
     component: pageOrder,
+  },
+  {
+    path: '/status/:id',
+    name: 'status',
+    component: pageStatus,
   }
 ]
 

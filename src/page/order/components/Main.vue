@@ -104,6 +104,9 @@
                                 >
                             </div>
                         </li>
+                        <li v-if="basket.length == 0">
+                            <h3>В корзине нет товаров</h3>
+                        </li>
                     </ul>
 
                     <div class="cart__total">
@@ -141,7 +144,8 @@ import castomInput from "@/page/order/components/castomInput";
 import castomTextarea from "@/page/order/components/castomTextarea";
 import shippingAndPayment from "@/page/order/components/shippingAndPayment";
 import { useStore } from "vuex";
-import { computed, ref, watch, watchEffect } from "vue";
+import { computed, ref, watchEffect } from "vue";
+import { useRouter } from "vue-router";
 import axios from "axios";
 import { urlAPI } from "@/urlAPI.js";
 export default {
@@ -149,6 +153,7 @@ export default {
 
     setup() {
         const store = useStore();
+        const router = useRouter();
         const basket = computed(() => store.state.basket.basket);
         const allGoods = computed(() => store.state.basket.allGoodsBasket);
         const allDeclination = ["товар", "товара", "товаров"];
@@ -211,7 +216,16 @@ export default {
                     errorMessage.value = err.response.data.error.message || "";
                 })
                 .then((resp) => {
-                    console.log(resp);
+                    if (resp) {
+                        store.dispatch("basket/reloadBaskets");
+                        store.commit("state/setState", resp.data);
+                        router.push({
+                            name: "status",
+                            params: {
+                                id: resp.data.id,
+                            },
+                        });
+                    }
                 });
         }
         return {

@@ -3,13 +3,13 @@
 </template>
 
 <script>
-import { onMounted } from "vue";
+import { onBeforeMount } from "vue";
 import { useStore } from "vuex";
 
 export default {
     setup() {
         const store = useStore();
-        onMounted(async () => {
+        onBeforeMount(async () => {
             await store.dispatch("product/getProducts");
             await store.dispatch("basket/reloadBaskets");
         });

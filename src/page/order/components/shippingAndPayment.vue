@@ -37,6 +37,7 @@
                         type="radio"
                         :value="1"
                         v-model="payment"
+                        disabled
                     />
                     <span class="options__value"> Картой при получении </span>
                 </label>
@@ -65,7 +66,7 @@ export default {
     setup() {
         const store = useStore();
         const sipping = ref(2);
-        const payment = ref(1);
+        const payment = ref(2);
 
         watchEffect(() => {
             const data = {
