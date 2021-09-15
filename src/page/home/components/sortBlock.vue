@@ -173,7 +173,7 @@ export default {
             store.commit("product/setSortId", sortCategory.value);
             store.commit("product/setMaterialId", sortMaterialArr);
             store.commit("product/setCollectionId", sortSeasonsArr);
-
+            store.commit("product/setPage", 1);
             store.dispatch("product/getProducts");
         }
 

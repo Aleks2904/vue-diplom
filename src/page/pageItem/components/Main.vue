@@ -8,15 +8,17 @@
             <div class="item__pics pics">
                 <div class="pics__wrapper">
                     <img
+                        v-if="colors.gallery"
                         width="570"
                         height="570"
-                        :src="
-                            colors.gallery
-                                ? colors.gallery[0].file.url
-                                : 'error'
-                        "
+                        :src="colors.gallery[0].file.url"
                         :alt="product.title"
                     />
+                    <p v-else class="facing">
+                        Здесь должен быть шикарный {{ product.title }},
+                        {{ colors.color.title }} цвета, но наш фотограф забухал
+                        !
+                    </p>
                 </div>
 
                 <ul class="pics__list">
@@ -33,15 +35,16 @@
                             @click.prevent="colorsUpdate(color)"
                         >
                             <img
+                                v-if="color.gallery"
                                 width="98"
                                 height="98"
-                                :src="
-                                    color.gallery
-                                        ? color.gallery[0].file.url
-                                        : 'error'
-                                "
+                                :src="color.gallery[0].file.url"
                                 :alt="color.color.title"
                             />
+
+                            <p v-else class="facing">
+                                И здесь тоже он должен быть
+                            </p>
                         </a>
                     </li>
                 </ul>
@@ -70,9 +73,8 @@
                                 </button>
 
                                 <input
-                                    type="text"
-                                    :v-model="countItem"
-                                    :value="countItem"
+                                    type="number"
+                                    v-model.number="countItem"
                                 />
 
                                 <button
@@ -305,5 +307,14 @@ export default {
 
 .tabs__link {
     cursor: pointer;
+}
+
+.pics__link {
+    cursor: pointer;
+    display: block;
+}
+.facing {
+    padding: 5px;
+    text-align: center;
 }
 </style>

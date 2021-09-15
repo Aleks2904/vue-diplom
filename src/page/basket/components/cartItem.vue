@@ -2,15 +2,16 @@
     <li class="cart__item product">
         <div class="product__pic">
             <img
-                :src="
-                    item.color.gallery
-                        ? item.color.gallery[0].file.url
-                        : 'error'
-                "
+                v-if="item.color.gallery"
+                :src="item.color.gallery[0].file.url"
                 width="120"
                 height="120"
                 :alt="item.product.title"
             />
+            <p v-else class="facing">
+                Здесь должен быть шикарный {{ item.product.title }},
+                {{ item.color.color.title }} цвета, но наш фотограф забухал !
+            </p>
         </div>
 
         <h3 class="product__title">
@@ -41,7 +42,7 @@
                 </svg>
             </button>
 
-            <input type="text" :value="item.quantity" />
+            <input type="text" v-model.number="item.quantity" />
 
             <button
                 type="button"
@@ -74,7 +75,7 @@
 
 <script>
 import axios from "axios";
-import { toRefs, computed } from "vue";
+import { toRefs, computed, watch } from "vue";
 import { useStore } from "vuex";
 import { urlAPI } from "@/urlAPI.js";
 
@@ -83,6 +84,7 @@ export default {
     setup(props) {
         const store = useStore();
         const accessKey = computed(() => store.state.basket.userAccessKey);
+        const count = computed(() => item.value.quantity);
         const { item } = toRefs(props);
 
         async function remove() {
@@ -118,6 +120,15 @@ export default {
             }
         }
 
+        watch(count, async () => {
+            let count = {
+                basketId: item.value.id,
+                quantity: item.value.quantity,
+            };
+
+            await store.dispatch("basket/changeGoods", count);
+        });
+
         return { item, remove, increment, decrement };
     },
 };
@@ -140,5 +151,11 @@ export default {
     &:focus > svg {
         fill: black;
     }
+}
+
+.facing {
+    margin: 0;
+    text-align: center;
+    padding: 5px 0;
 }
 </style>

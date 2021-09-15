@@ -5,13 +5,16 @@
             :to="{ name: 'item', params: { id: item.id } }"
         >
             <img
-                :src="
-                    productColor[item.id].gallery
-                        ? productColor[item.id].gallery[0].file.url
-                        : 'error'
-                "
+                v-if="productColor[item.id].gallery"
+                :src="productColor[item.id].gallery[0].file.url"
                 :alt="item.title"
             />
+
+            <p class="facing" v-else>
+                Здесь должен быть шикарный {{ item.title }},
+                {{ productColor[item.id].color.title }} цвета, но наш фотограф
+                забухал !
+            </p>
         </router-link>
 
         <h3 class="catalog__title">
@@ -48,7 +51,7 @@
             </ul>
 
             <button class="btn-add-goods" @click.prevent="submit(item)">
-                <btn-basket />
+                <btn-basket :item="item" :state="state" />
             </button>
         </div>
     </li>
@@ -64,12 +67,14 @@ export default {
     components: { btnBasket },
     setup() {
         const store = useStore();
-
+        const productColor = ref({});
+        const state = ref({
+            state: "no",
+            id: 0,
+        });
         const product = computed(() => {
             return store.state.product.products;
         });
-
-        const productColor = ref({});
 
         function productColorStart() {
             productColor.value = {};
@@ -80,6 +85,9 @@ export default {
         }
 
         async function submit(item) {
+            state.value.state = "process";
+            state.value.id = item.id;
+
             const goodsArr = {};
             const data = {
                 goodsArr: goodsArr,
@@ -95,13 +103,18 @@ export default {
                 goodsArr.colorId = productColor.value[item.id].color.id;
             });
 
-            await store.dispatch("basket/submit", data);
+            await store.dispatch("basket/submit", data).then(() => {
+                state.value.state = "ok";
+                setTimeout(() => {
+                    state.value.state = "no";
+                }, 1000);
+            });
         }
 
         watch(product, productColorStart);
         onBeforeMount(productColorStart);
 
-        return { product, productColor, submit };
+        return { product, productColor, submit, state };
     },
 };
 </script>
@@ -109,7 +122,7 @@ export default {
 <style lang="scss" scoped>
 .color-bar-container {
     display: grid;
-    grid-template-columns: 65% 30%;
+    grid-template-columns: 70% 30%;
     justify-content: space-between;
 }
 .btn-add-goods {
@@ -122,5 +135,9 @@ export default {
     background: transparent;
 
     cursor: pointer;
+}
+.facing {
+    padding: 15px;
+    text-align: center;
 }
 </style>
