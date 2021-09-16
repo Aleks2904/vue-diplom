@@ -22,16 +22,18 @@
             </fieldset>
 
             <fieldset class="form__block">
-                <legend class="form__legend">количество товара для пока</legend>
+                <legend class="form__legend">
+                    количество товара для показа
+                </legend>
                 <label class="form__label form__label--select">
                     <select class="form__select" v-model.number="productLimit">
-                        <option value="3">3 товар</option>
+                        <option value="3">3 товара</option>
                         <option value="6">6 товаров</option>
                         <option value="9">9 товаров</option>
                         <option value="12">12 товаров</option>
                         <option value="15">15 товаров</option>
                         <option value="18">18 товаров</option>
-                        <option value="21">21 товаров</option>
+                        <option value="21">21 товар</option>
                     </select>
                 </label>
             </fieldset>
@@ -95,20 +97,6 @@
                             </span>
                         </label>
                     </li>
-                    <li class="check-list__item">
-                        <label class="check-list__label">
-                            <input
-                                class="check-list__check sr-only"
-                                type="checkbox"
-                                name="collection"
-                                value="зима"
-                            />
-                            <span class="check-list__desc">
-                                зима
-                                <span>(53)</span>
-                            </span>
-                        </label>
-                    </li>
                 </ul>
             </fieldset>
 
@@ -127,7 +115,7 @@
 </template>
 
 <script>
-import { ref, onMounted, watch } from "vue";
+import { ref, onMounted, watch, computed, reactive } from "vue";
 import { sortCategoryArr, sortMaterialsArr, sortSeasonsArr } from "@/api/sort";
 import { useStore } from "vuex";
 
@@ -135,7 +123,7 @@ export default {
     setup() {
         const store = useStore();
 
-        const productLimit = ref(3);
+        const productLimit = ref(store.state.product.productShow);
 
         const minPrice = ref(0);
         const maxPrice = ref(0);

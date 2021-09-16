@@ -14,7 +14,7 @@
         </div>
 
         <div class="content__catalog">
-            <sort-block></sort-block>
+            <sort-block />
             <block-of-goods />
         </div>
     </main>

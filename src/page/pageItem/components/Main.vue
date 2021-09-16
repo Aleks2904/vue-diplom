@@ -73,7 +73,8 @@
                                 </button>
 
                                 <input
-                                    type="number"
+                                    class="input"
+                                    type="text"
                                     v-model.number="countItem"
                                 />
 
@@ -221,7 +222,7 @@ export default {
         const product = ref({});
         const colors = ref({});
         const size = ref();
-        const countItem = ref(1);
+        const countItem = ref(Number(1));
 
         const stateSubmit = ref("");
 
@@ -316,5 +317,13 @@ export default {
 .facing {
     padding: 5px;
     text-align: center;
+}
+.colors {
+    display: flex;
+    justify-content: center;
+}
+.input {
+    outline: none;
+    border: none;
 }
 </style>

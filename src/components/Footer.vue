@@ -13,8 +13,8 @@
                     </a>
                 </li>
                 <li>
-                    <a class="footer__link" href="mailto:hi@technozavrrr.com">
-                        hi@technozavrrr.com
+                    <a class="footer__link" href="mailto:hi@moire.com">
+                        hi@moire.com
                     </a>
                 </li>
                 <li>

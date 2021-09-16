@@ -17,7 +17,7 @@ export const catalogStore = {
         collectionId: [1],
         //список товары и колличество отображаймых
         products: [],
-        productShow: 3,
+        productShow: 6,
         //состояния загрузки и ошибки при получении товаров
         loadingProduct: false,
         loadingProductError: false,

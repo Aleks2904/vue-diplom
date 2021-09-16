@@ -42,7 +42,7 @@
                 </svg>
             </button>
 
-            <input type="text" v-model.number="item.quantity" />
+            <input class="input" type="text" v-model.number="item.quantity" />
 
             <button
                 type="button"
@@ -157,5 +157,10 @@ export default {
     margin: 0;
     text-align: center;
     padding: 5px 0;
+}
+
+.input {
+    border: none;
+    outline: none;
 }
 </style>
