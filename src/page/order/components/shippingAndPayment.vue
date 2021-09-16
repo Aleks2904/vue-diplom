@@ -23,7 +23,9 @@
                         :value="2"
                         v-model="sipping"
                     />
-                    <span class="options__value"> Курьером <b>290 ₽</b> </span>
+                    <span class="options__value">
+                        Курьером <b>1 200 ₽</b>
+                    </span>
                 </label>
             </li>
         </ul>
@@ -37,7 +39,7 @@
                         type="radio"
                         :value="1"
                         v-model="payment"
-                        disabled
+                        :disabled="sipping == 2"
                     />
                     <span class="options__value"> Картой при получении </span>
                 </label>
@@ -60,7 +62,7 @@
 </template>
 
 <script>
-import { ref, watchEffect } from "vue";
+import { ref, watchEffect, watch } from "vue";
 import { useStore } from "vuex";
 export default {
     setup() {
@@ -81,6 +83,11 @@ export default {
                 data: payment.value,
             };
             store.commit("order/setOrders", data);
+        });
+        watch(sipping, () => {
+            if (sipping.value == 2) {
+                payment.value = 2;
+            }
         });
         return { sipping, payment };
     },
