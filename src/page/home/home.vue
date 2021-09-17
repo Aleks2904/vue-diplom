@@ -16,7 +16,12 @@
 
         <div class="content__catalog">
             <sort-block />
-            <block-of-goods />
+            <section class="catalog">
+                <ul class="catalog__list">
+                    <item-of-goods />
+                </ul>
+                <pagination />
+            </section>
         </div>
     </main>
     <Footer />
@@ -26,7 +31,8 @@
 import Header from "@/components/Header.vue";
 import Footer from "@/components/Footer.vue";
 import sortBlock from "@/page/home/components/sortBlock/sortBlock";
-import blockOfGoods from "@/page/home/components/blockOfGoods";
+import itemOfGoods from "@/page/home/components/items/itemOfGoods";
+import pagination from "@/page/home/components/pagination";
 import { computed } from "vue";
 import { useStore } from "vuex";
 
@@ -35,7 +41,8 @@ export default {
         Header,
         Footer,
         sortBlock,
-        blockOfGoods,
+        itemOfGoods,
+        pagination,
     },
 
     setup() {

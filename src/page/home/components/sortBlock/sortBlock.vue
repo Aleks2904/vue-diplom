@@ -6,12 +6,13 @@
                 v-model:maxPrice="maxPrice"
             />
 
-            <select-goods-show
+            <select-sort
                 :title="'количество товара для показа'"
+                :arr="swohGoodsArr"
                 v-model:model="productLimit"
             />
 
-            <select-categories
+            <select-sort
                 :title="'Категория'"
                 :arr="sortsCategoryArr"
                 v-model:model="sortCategory"
@@ -45,19 +46,17 @@
 </template>
 
 <script>
-import { ref, onMounted, watch, computed, reactive } from "vue";
+import { ref, onMounted, watch } from "vue";
 import { sortCategoryArr, sortMaterialsArr, sortSeasonsArr } from "@/api/sort";
 import { useStore } from "vuex";
 import castomCheckBox from "@/page/home/components/sortBlock/castomCheckBox";
-import selectCategories from "@/page/home/components/sortBlock/selectCategories";
-import selectGoodsShow from "@/page/home/components/sortBlock/selectGoodsShow";
+import selectSort from "@/page/home/components/sortBlock/selectSort";
 import sortPrice from "@/page/home/components/sortBlock/sortPrice";
 
 export default {
     components: {
         castomCheckBox,
-        selectCategories,
-        selectGoodsShow,
+        selectSort,
         sortPrice,
     },
     setup() {
@@ -71,11 +70,38 @@ export default {
         const sortCategory = ref(0);
         const sortsCategoryArr = ref();
 
-        const sortsMaterialsArr = ref();
         const sortMaterials = ref({ 1: true });
+        const sortsMaterialsArr = ref();
 
-        const sortsSeasonsArr = ref();
         const sortSeasons = ref({ 1: true });
+        const sortsSeasonsArr = ref();
+
+        const swohGoodsArr = [
+            {
+                id: 3,
+                title: "3 товара",
+            },
+            {
+                id: 6,
+                title: "6 товаров",
+            },
+            {
+                id: 9,
+                title: "9 товаров",
+            },
+            {
+                id: 12,
+                title: "12 товаров",
+            },
+            {
+                id: 15,
+                title: "15 товаров",
+            },
+            {
+                id: 18,
+                title: "18 товаров",
+            },
+        ];
 
         function changingArr(value) {
             let val = new Object(value);
@@ -121,7 +147,13 @@ export default {
         onMounted(async () => {
             await sortCategoryArr().then((resp) => {
                 if (resp.statusText === "OK") {
-                    sortsCategoryArr.value = resp.data.items;
+                    let data = resp.data.items;
+                    data.unshift({
+                        id: 0,
+                        slug: "all goods",
+                        title: "Все товары",
+                    });
+                    sortsCategoryArr.value = data;
                 }
             });
 
@@ -140,6 +172,7 @@ export default {
 
         return {
             productLimit,
+            swohGoodsArr,
             minPrice,
             maxPrice,
             sortCategory,

@@ -1,18 +1,20 @@
 <template>
-    <castom-select :title="title" v-model:model="model">
-        <option value="0">Все категории</option>
-        <option v-for="item in arr" :key="item.id" :value="item.id">
-            {{ item.title }}
-        </option>
-    </castom-select>
+    <fieldset class="form__block">
+        <legend class="form__legend">{{ title }}</legend>
+        <label class="form__label form__label--select">
+            <select class="form__select" v-model.number="model">
+                <option v-for="item in arr" :key="item.id" :value="item.id">
+                    {{ item.title }}
+                </option>
+            </select>
+        </label>
+    </fieldset>
 </template>
 
 <script>
-import castomSelect from "@/page/home/components/sortBlock/castomSelect";
 import { toRefs, computed } from "vue";
 export default {
     props: ["title", "model", "arr"],
-    components: { castomSelect },
     setup(props, { emit }) {
         const { title } = toRefs(props);
         const { arr } = toRefs(props);

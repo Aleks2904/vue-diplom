@@ -8,6 +8,7 @@ import pageItem from '@/page/pageItem/pageItem';
 import pageBasket from '@/page/basket/pageBasket';
 import pageOrder from '@/page/order/pageOrder';
 import pageStatus from '@/page/status/pageStatus';
+import page404 from '@/page/page404/page404';
 
 const routes = [{
     path: '/',
@@ -33,6 +34,11 @@ const routes = [{
     path: '/status/:id',
     name: 'status',
     component: pageStatus,
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'page404',
+    component: page404,
   }
 ]
 
