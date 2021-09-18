@@ -70,10 +70,10 @@ export default {
         const sortCategory = ref(0);
         const sortsCategoryArr = ref();
 
-        const sortMaterials = ref({ 1: true });
+        const sortMaterials = ref({});
         const sortsMaterialsArr = ref();
 
-        const sortSeasons = ref({ 1: true });
+        const sortSeasons = ref({});
         const sortsSeasonsArr = ref();
 
         const swohGoodsArr = [
@@ -134,8 +134,8 @@ export default {
             minPrice.value = 0;
             maxPrice.value = 0;
             sortCategory.value = 0;
-            sortMaterials.value = { 1: true };
-            sortSeasons.value = { 1: true };
+            sortMaterials.value = {};
+            sortSeasons.value = {};
 
             submitHandler();
         }
