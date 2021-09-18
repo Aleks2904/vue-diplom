@@ -141,6 +141,7 @@ export default {
         }
 
         watch(productLimit, () => {
+            store.commit("product/setProductShow", productLimit.value);
             store.dispatch("product/getProducts");
         });
 
