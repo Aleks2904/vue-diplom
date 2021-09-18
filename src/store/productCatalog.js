@@ -14,7 +14,7 @@ export const catalogStore = {
         priceMax: 0,
         sortId: 0,
         materialId: [],
-        collectionId: [1],
+        collectionId: [],
         //список товары и колличество отображаймых
         products: [],
         productShow: 6,
